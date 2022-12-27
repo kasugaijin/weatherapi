@@ -47,16 +47,15 @@ function createUrl(url, query, key, units) {
 
 // DOM interaction
 function selectTempUnit() {
-  if (metricSelect.checked == false && 
-      imperialSelect.checked == false) return dataUnits = '&units=metric'
+  if (!metricSelect.checked && 
+      !imperialSelect.checked) return dataUnits = '&units=metric'
   
-  metricSelect.checked == true ? dataUnits = '&units=metric' : dataUnits = '&units=imperial'
+  metricSelect.checked ? dataUnits = '&units=metric' : dataUnits = '&units=imperial'
   return dataUnits
 }
 
 function addDataToDom(response) {
-  if (response.cod == '404' || 
-      response.cod == '400') return notFound();
+  if (response.cod == '404' || response.cod == '400') return notFound();
 
   city.innerText = response.name
   temperature.innerText = response.main.temp;
@@ -100,3 +99,5 @@ function getAndDisplayWeather() {
   createUrl(fetchUrl, fetchQuery, fetchApiKey, dataUnits);
   getWeather(requestUrl);
 }
+
+// also write async await
