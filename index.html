@@ -8,29 +8,43 @@
   <title>Document</title>
 </head>
 <body>
-  <!--Inputs-->
   <h1>How's the weather in...</h1>
-  <label for="fname">Enter a city:</label>
-  <input id='input' type="text" ><br>
-  <button id="submit">Submit</button><br>
 
-  <input type="radio" id="metric" name="temp_unit" value="metric">
-  <label for="html">Metric</label><br>
-  <input type="radio" id="imperial" name="temp_unit" value="imperial">
-  <label for="css">Imperial</label><br>
+  <div id="container">
+    <div id="erroroutput"></div><br>
+  
+    <input id='input' type="text" placeholder="Enter a city"><br>
+    <button id="submit">Submit</button><br>
 
-  <!--Outputs-->
-<div id="erroroutput"></div><br>
-<div>City:</div>
-<div id="city"></div><br>
-<div>Temperature (Celsius):</div>
-<div id="tempvalue"></div><br>
-<div>Cloud Cover:</div>
-<div id="cloudcovervalue"></div><br>
-<div>Wind speed (m/s):</div>
-<div id="windspeedvalue"></div><br>
-<div>Wind Direction (degrees):</div>
-<div id="winddirectionvalue"></div>
+  <div id="radios">  
+    <input type="radio" id="metric" name="temp_unit" value="metric">
+    <label for="html">Metric</label><br>
+    <input type="radio" id="imperial" name="temp_unit" value="imperial">
+    <label for="css">Imperial</label><br>
+  </div>
+
+    <!--Outputs-->
+    <div>
+      <strong>City</strong>
+    </div>
+    <div id="city"></div><br>
+    <div>
+      <strong>Temperature</strong>
+    </div>
+    <div id="tempvalue"></div><br>
+    <div>
+      <strong>Cloud Cover</strong>
+    </div>
+    <div id="cloudcovervalue"></div><br>
+    <div>
+      <strong>Wind speed</strong>
+    </div>
+    <div id="windspeedvalue"></div><br>
+    <div>
+      <strong>Wind Direction (degrees)</strong>
+    </div>
+    <div id="winddirectionvalue"></div>
+  </div>
 </body>
 <script src="script.js"></script>
 </html>

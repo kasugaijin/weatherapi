@@ -27,7 +27,6 @@ async function getWeather(url) {
       return response.json();
     })
     .then(function(response) {
-      console.log(response);
       addDataToDom(response);
     })
     .catch(err => {
@@ -77,6 +76,10 @@ function blankParam() {
   return errorOutput.innerText = 'Enter a city.'
 }
 
+function clearError() {
+  return errorOutput.innerText = ''
+}
+
 // Data manipulation
 function cloudCoverDescription(percentage) {
   if (percentage < 10) {
@@ -98,6 +101,7 @@ function getAndDisplayWeather() {
   createQuery(inputValue.value);
   createUrl(fetchUrl, fetchQuery, fetchApiKey, dataUnits);
   getWeather(requestUrl);
+  clearError()
 }
 
 // also write async await
