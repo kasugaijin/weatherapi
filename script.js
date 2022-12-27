@@ -1,3 +1,4 @@
+// DOM Elements
 let fetchUrl = 'https://api.openweathermap.org/data/2.5/weather?'
 let fetchQuery = ''
 let fetchApiKey = '&appid=c9e15910f01662c7dc0ff0169b4f4e0d'
@@ -9,14 +10,17 @@ let submitButton = document.getElementById('submit')
 let metricSelect = document.getElementById('metric')
 let imperialSelect = document.getElementById('imperial')
 
+let errorOutput = document.getElementById('erroroutput')
 let city = document.getElementById('city')
 let temperature = document.getElementById('tempvalue')
 let cloudCover = document.getElementById('cloudcovervalue')
 let windSpeed = document.getElementById('windspeedvalue')
 let windDirection = document.getElementById('winddirectionvalue')
 
+// Event Listener
 submitButton.addEventListener('click', getAndDisplayWeather)
 
+// API Call
 async function getWeather(url) {
   fetch(url)
     .then(function(response) {
@@ -27,33 +31,54 @@ async function getWeather(url) {
       addDataToDom(response);
     })
     .catch(err => {
-      console.error(err);
+      fetchError();
     }
     )
 }
 
-function selectTempUnit() {
-  if (metricSelect.checked == true) {
-    dataUnits = '&units=metric'
-  } else if (imperialSelect.checked == true) {
-    dataUnits = '&units=imperial'
-  } else if (metricSelect.checked == false && imperialSelect.checked == false) {
-    dataUnits = '&units=metric'
-    metricSelect.checked == true
-  }
-  
-  return dataUnits
-}
-
+// API URL
 function createQuery(param) {
   return fetchQuery = ('q=' + param.trim());
 }
 
 function createUrl(url, query, key, units) {
-  debugger
   return requestUrl = (url + query + key + units);
 }
 
+// DOM interaction
+function selectTempUnit() {
+  if (metricSelect.checked == false && 
+      imperialSelect.checked == false) return dataUnits = '&units=metric'
+  
+  metricSelect.checked == true ? dataUnits = '&units=metric' : dataUnits = '&units=imperial'
+  return dataUnits
+}
+
+function addDataToDom(response) {
+  if (response.cod == '404' || 
+      response.cod == '400') return notFound();
+
+  city.innerText = response.name
+  temperature.innerText = response.main.temp;
+  cloudCover.innerText = cloudCoverDescription(response.clouds.all)
+  windSpeed.innerText = response.wind.speed
+  windDirection.innerText = response.wind.deg
+}
+
+// Errors
+function fetchError() {
+  return errorOutput.innerText = 'Error. Please try again.'
+}
+
+function notFound() {
+  return errorOutput.innerText = 'City not found.'
+}
+
+function blankParam() {
+  return errorOutput.innerText = 'Enter a city.'
+}
+
+// Data manipulation
 function cloudCoverDescription(percentage) {
   if (percentage < 10) {
     return 'Clear'
@@ -66,24 +91,12 @@ function cloudCoverDescription(percentage) {
   }
 }
 
-function addDataToDom(response) {
-  city.innerText = response.name
-  temperature.innerText = response.main.temp;
-  cloudCover.innerText = cloudCoverDescription(response.clouds.all)
-  windSpeed.innerText = response.wind.speed
-  windDirection.innerText = response.wind.deg
-}
-
+// Controller
 function getAndDisplayWeather() {
+  if (inputValue.value == '') return blankParam()
+
   selectTempUnit()
   createQuery(inputValue.value);
   createUrl(fetchUrl, fetchQuery, fetchApiKey, dataUnits);
   getWeather(requestUrl);
 }
-
-// sanitize query to add & for inner spaces
-// make toggle for farenheit to work
-// by default select celsius, add celsius param to url 
-// clear button
-// write the same fetch using async await, try catch
-// create  meaningful error output
