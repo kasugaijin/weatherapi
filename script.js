@@ -1,21 +1,21 @@
 // DOM Elements
-let fetchUrl = 'https://api.openweathermap.org/data/2.5/weather?'
+const fetchUrl = 'https://api.openweathermap.org/data/2.5/weather?'
 let fetchQuery = ''
-let fetchApiKey = '&appid=c9e15910f01662c7dc0ff0169b4f4e0d'
+const fetchApiKey = '&appid=c9e15910f01662c7dc0ff0169b4f4e0d'
 let dataUnits = ''
 let requestUrl = ''
 
-let inputValue = document.getElementById('input')
-let submitButton = document.getElementById('submit') 
-let metricSelect = document.getElementById('metric')
-let imperialSelect = document.getElementById('imperial')
+const inputValue = document.getElementById('input')
+const submitButton = document.getElementById('submit') 
+const metricSelect = document.getElementById('metric')
+const imperialSelect = document.getElementById('imperial')
 
-let errorOutput = document.getElementById('erroroutput')
-let city = document.getElementById('city')
-let temperature = document.getElementById('tempvalue')
-let cloudCover = document.getElementById('cloudcovervalue')
-let windSpeed = document.getElementById('windspeedvalue')
-let windDirection = document.getElementById('winddirectionvalue')
+const errorOutput = document.getElementById('erroroutput')
+const city = document.getElementById('city')
+const temperature = document.getElementById('tempvalue')
+const cloudCover = document.getElementById('cloudcovervalue')
+const windSpeed = document.getElementById('windspeedvalue')
+const windDirection = document.getElementById('winddirectionvalue')
 
 // Event Listener
 submitButton.addEventListener('click', getAndDisplayWeather)
@@ -34,6 +34,12 @@ async function getWeather(url) {
     }
     )
 }
+// Practice using async await
+// async function getWeather(url) {
+//   const response = await fetch(url)
+//   const dataObject = await response.json()
+//   addDataToDom(dataObject)
+// }
 
 // API URL
 function createQuery(param) {
@@ -103,5 +109,3 @@ function getAndDisplayWeather() {
   getWeather(requestUrl);
   clearError()
 }
-
-// also write async await
